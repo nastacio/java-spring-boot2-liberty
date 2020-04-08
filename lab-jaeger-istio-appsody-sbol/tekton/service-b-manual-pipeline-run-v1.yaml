@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  name: java-spring-boot2-liberty-service-b-manual-pipeline-run-v1
+spec:
+  params:
+  - name: event-type
+    value: push
+  - name: event-ref
+    value: refs/heads/master
+  - name: docker-imagename
+    value: my-java-spring-boot2-liberty-image
+  - name: docker-imagetag
+    value: latest
+  serviceAccountName: kabanero-pipeline
+  timeout: "1h0m0s"
+  pipelineRef:
+    name: my-java-spring-boot2-liberty-build-deploy-pl
+  resources:
+    - name: git-source
+      resourceRef:
+        name: git-source-service-b-v1
+    - name: docker-image
+      resourceRef:
+        name: docker-image-service-b-v1

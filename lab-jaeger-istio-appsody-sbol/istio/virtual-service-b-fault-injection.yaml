@@ -1,0 +1,27 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service-b
+spec:
+  hosts:
+    - service-b
+  http:
+    - route:
+        - destination:
+            host: service-b
+            subset: v1
+          weight: 80
+          fault:
+            abort:
+              percentage:
+                value: 100
+              httpStatus: 400
+        - destination:
+            host: service-b
+            subset: v2
+          weight: 20
+          fault:
+            abort:
+              percentage:
+                value: 100
+              httpStatus: 400

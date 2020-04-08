@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service-a
+spec:
+  gateways:
+  - tutorial-gateway
+  hosts:
+  - '*'
+  http:
+    - match:
+        - uri:
+            prefix: /sayHello
+      route:
+        - destination:
+            host: service-a
+            subset: v1
+          weight: 70
+        - destination:
+            host: service-a
+            subset: v2
+          weight: 30

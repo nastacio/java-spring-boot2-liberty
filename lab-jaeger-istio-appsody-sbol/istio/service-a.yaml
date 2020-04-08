@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-a
+  labels:
+    app: service-a
+    service: service-a
+spec:
+  ports:
+    - port: 9080
+      name: http
+  selector:
+    app: service-a

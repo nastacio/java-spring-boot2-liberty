@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service-ingress
+spec:
+  gateways:
+  - tutorial-gateway
+  hosts:
+  - '*'
+  http:
+    - match:
+        - uri:
+            prefix: /sayHello
+      route:
+        - destination:
+            host: service-a
+            port:
+              number: 9080
+          weight: 10
+        - destination:
+            host: service-a-v1
+            port:
+              number: 9080
+          weight: 90
